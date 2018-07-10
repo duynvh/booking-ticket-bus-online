@@ -1,0 +1,56 @@
+export const CLEAR_MSG      = 'CLEAR_MSG';
+
+export const AUTH_USER 		= 'AUTH_USER';
+export const AUTH_ERROR 	= 'AUTH_ERROR';
+
+export const LIST_GROUP     = 'LIST_GROUP';
+export const CREATE_GROUP   = 'CREATE_GROUP';
+export const EDIT_GROUP     = 'EDIT_GROUP';
+
+export const LIST_CONTACT     = 'LIST_CONTACT';
+export const CREATE_CONTACT   = 'CREATE_CONTACT';
+export const EDIT_CONTACT     = 'EDIT_CONTACT';
+
+export const LIST_PROVINCE     = 'LIST_PROVINCE';
+export const CREATE_PROVINCE   = 'CREATE_PROVINCE';
+export const EDIT_PROVINCE     = 'EDIT_PROVINCE';
+
+export const LIST_USER     = 'LIST_USER';
+export const CREATE_USER   = 'CREATE_USER';
+export const EDIT_USER     = 'EDIT_USER';
+
+export const LIST_SLIDER     = 'LIST_SLIDER';
+export const CREATE_SLIDER   = 'CREATE_SLIDER';
+export const EDIT_SLIDER     = 'EDIT_SLIDER';
+
+export const LIST_MENU     = 'LIST_MENU';
+export const CREATE_MENU   = 'CREATE_MENU';
+export const EDIT_MENU     = 'EDIT_MENU';
+
+export const LIST_CATEGORY_ARTICLE     = 'LIST_CATEGORY_ARTICLE';
+export const CREATE_CATEGORY_ARTICLE   = 'CREATE_CATEGORY_ARTICLE';
+export const EDIT_CATEGORY_ARTICLE     = 'EDIT_CATEGORY_ARTICLE';
+
+export const LIST_ARTICLE     = 'LIST_ARTICLE';
+export const CREATE_ARTICLE   = 'CREATE_ARTICLE';
+export const EDIT_ARTICLE     = 'EDIT_ARTICLE';
+
+export const LIST_CATEGORY_SCHEDULE     = 'LIST_CATEGORY_SCHEDULE';
+export const CREATE_CATEGORY_SCHEDULE   = 'CREATE_CATEGORY_SCHEDULE';
+export const EDIT_CATEGORY_SCHEDULE     = 'EDIT_CATEGORY_SCHEDULE';
+
+export const LIST_SCHEDULE     = 'LIST_SCHEDULE';
+export const CREATE_SCHEDULE   = 'CREATE_SCHEDULE';
+export const EDIT_SCHEDULE     = 'EDIT_SCHEDULE';
+
+export const LIST_SCHEDULE_INFO     = 'LIST_SCHEDULE_INFO';
+export const CREATE_SCHEDULE_INFO   = 'CREATE_SCHEDULE_INFO';
+export const EDIT_SCHEDULE_INFO     = 'EDIT_SCHEDULE_INFO';
+
+export const LIST_ROUTE_DEPARTURE     = 'LIST_ROUTE_DEPARTURE';
+export const CREATE_ROUTE_DEPARTURE   = 'CREATE_ROUTE_DEPARTURE';
+export const EDIT_ROUTE_DEPARTURE     = 'EDIT_ROUTE_DEPARTURE';
+
+export const LIST_TRANSHIPMENT_OFFICE     = 'LIST_TRANSHIPMENT_OFFICE';
+export const CREATE_TRANSHIPMENT_OFFICE   = 'CREATE_TRANSHIPMENT_OFFICE';
+export const EDIT_TRANSHIPMENT_OFFICE     = 'EDIT_TRANSHIPMENT_OFFICE';

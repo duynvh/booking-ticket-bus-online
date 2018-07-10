@@ -1,0 +1,207 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+header#nav-header {
+	background: #ef5222 !important;
+}
+
+footer {
+	background: #ef5222;	
+}
+
+.color-primary {
+	background: #ef5222;
+	color: white;
+}
+
+#nav-header .nav-item{
+	margin-right: 80px;
+}
+
+#nav-header ul.navbar-nav li a.nav-link{
+	color: #f5dfdf;
+}
+
+#nav-header ul.navbar-nav li.active a.nav-link{
+	color: white;
+}
+
+.mt-30 {
+	margin-top: 30px;
+}
+
+.mt-15 {
+	margin-top: 15px;
+}
+
+img.d-block.w-100.carousel-slide-image {
+    height: 333px;
+}
+
+.hotline h4 {
+	color: #00613d;
+}
+
+.color-hotline {
+	color: #ef5222;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+#number-hotline {
+	position: relative;
+}
+
+.img-hotline {
+	width: 37px;
+	top: -10px;
+	position: absolute;
+}
+
+
+h3.heading {
+    padding-bottom: 5px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ef5222;
+    display: inline-block;
+}
+
+.color-text-primary {
+	color: #ef5222;
+	font-weight: bold
+}
+
+.card-info p {
+	color: #075c2f;
+	font-style: italic;
+	font-weight: bold
+}
+
+/*=============================================INFO=======================================*/
+
+.info-block {
+    position: relative;
+}
+
+.info-block img {
+    position: absolute;
+    top: 30%;
+    width: 80px;
+}
+
+.info-text {
+    margin-left: 90px;
+}
+
+.info-block .info-text p {
+    text-align: justify;
+}
+
+.info-block .info-text h3 {
+    color: #ef5222;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.info-block .info-text a {
+    float: right;
+    color: #ef5222;
+    font-style: italic;
+}
+
+
+.footer-category li{
+	margin-bottom: 10px;
+}
+
+.footer-category li a{
+	color: black;
+	margin-left: 10px;
+}
+
+/* SEAT */
+.seat {
+	width: 30px;
+    height: 30px;
+    display: inline-block;
+	text-align: center;
+}
+
+.color-white {
+	background: rgb(239, 248, 212);
+}
+
+.color-gray {
+	background: rgb(138, 137, 137);
+	color: rgb(180, 176, 176);
+}
+
+.icon-bg-small {
+	margin: 0 auto;
+	width: 10px;
+	height: 10px;
+}
+
+.disabledbutton {
+    pointer-events: none;
+	opacity: 0.4;
+	content: "Ghế đã được đặt";
+}
+
+.text-strong {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#bg-facebook {
+	background: #3d5c98;
+	color: #fff;
+}
+
+#bg-facebook {
+	background: #3d5c98;
+	color: #fff;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.bg-light-green {
+    background: rgba(21,135,76,.59);
+}
+
+.text-success {
+    color: #3c763d;
+}
+
+.border-radius-office {
+    padding: 5px 15px;
+    background: #006838;
+    color: #fff;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 23px;
+    margin-bottom: 25px;
+}
+
+.shufflestation-block p.hotline {
+    color: #ef5222;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.shufflestation-block p.recommend {
+    color: #ef5222;
+    font-weight: bold;
+}
+
+.box-reserve {
+	border: 1px solid;
+	box-shadow: 5px 10px 8px #888888;
+}
