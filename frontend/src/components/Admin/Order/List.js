@@ -46,6 +46,7 @@ class List extends Component {
                         <td>{order.name}</td>
                         <td>{order.phone}</td>
                         <td>{order.total.format()} Đ</td>
+                        <td>{order.route_departure_name}</td>
                         <td>{this.renderMethodPayment(order.method_payment)}</td>
                         <td>
                             <p>{arrDate[2]}/{arrDate[1]}/{arrDate[0]}</p>
@@ -81,7 +82,8 @@ class List extends Component {
                                         <th>Tên khách hàng</th>
                                         <th>Phone</th>
                                         <th>Tổng tiền</th>
-                                        <th>Method Payment</th>
+                                        <th>Nơi lên xe</th>
+                                        <th>Thanh toán</th>
                                         <th>Lịch trình</th>
                                         <th>Số ghế</th>
                                         </tr>

@@ -54,22 +54,6 @@ class Reserve extends Component{
     this.loadRoureDeparture(this.props.reserve.category_schedule_id);
   }
 
-  loadOrder = (date, schedule_detail_id) => {
-    let url = `${configs.BASE_URL}order/get-by-date/${schedule_detail_id}/${date}`;
-    var list_seat = [];
-    axios.get(url).then(response => {
-        let data = response.data;
-        data.forEach((item)=> {
-          item.seat.map((seat, index) => {
-            list_seat.push(seat);
-          })
-        });
-        this.setState({
-          list_seat_reverse: list_seat
-        });
-    });
-  }
-
   loadDate = (date) => {
     this.setState({
         startDate: new Date(date).toLocaleDateString()
@@ -114,6 +98,7 @@ class Reserve extends Component{
         this.props.changeRouteDeparture(data[0].name);
     });
   }
+
 
   loadNotify(){
     this.refs.notify.notificationAlert(options);
@@ -166,7 +151,7 @@ class Reserve extends Component{
       if(routes_departure.length > 0) {
           xhtml = routes_departure.map((route, index) => {
               return (
-                  <option key={index} value={route._id}>{route.name}</option>
+                  <option key={index} value={route.name}>{route.name}</option>
               );
           });
       }
@@ -209,7 +194,7 @@ class Reserve extends Component{
   }
 
 	render() {
-    const {arr_seat,start_point, end_point, price, startDate, schedule, schedules_detail, routes_departure, list_seat_reverse} = this.state;
+    const {arr_seat,start_point, end_point, price, startDate, schedule, schedules_detail, routes_departure, list_seat_reverse, route_departure_name, schedule_detail_id} = this.state;
     const format_price = price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 
     let {reserve} = this.props;
@@ -242,7 +227,7 @@ class Reserve extends Component{
                               <div className="form-group row">
                                 <label style={{marginTop: 4}} className="col-md-1"><i className="fa fa-clock-o color-text-primary" /></label>
                                 <div className="col-md-11">
-                                  <select onChange={this.handleChange} value={this.state.schedule_detail_id} name="schedule_detail_id" className="form-control form-control-sm" id="inputGroupSelect03">
+                                  <select onChange={this.handleChange} value={schedule_detail_id} name="schedule_detail_id" className="form-control form-control-sm" id="inputGroupSelect03">
                                     {this.renderTime(schedules_detail)}
                                   </select>
                                 </div>
@@ -253,7 +238,7 @@ class Reserve extends Component{
                               <div className="form-group row">
                                 <label style={{marginTop: 4}} className="col-md-1"><i className="fa fa-clock-o color-text-primary" /></label>
                                 <div className="col-md-11">
-                                  <select onChange={this.handleChange} value={this.state.route_departure_name} name="route_departure_name" className="form-control form-control-sm" id="inputGroupSelect04">
+                                  <select onChange={this.handleChange} value={route_departure_name} name="route_departure_name" className="form-control form-control-sm" id="inputGroupSelect04">
                                     {this.renderRouteDeparture(routes_departure)}
                                   </select>
                                 </div>

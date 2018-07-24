@@ -7,7 +7,6 @@ class Seat extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isMounted: false,
             customClass: 'color-white',
             schedule_detail_id: '',
             list_seat_reverse: [],
@@ -33,21 +32,36 @@ class Seat extends Component {
     }
 
     componentWillMount() {
+        this.isCancelled = true;
         this.setState({
             customClass : this.props.className,
             schedule_detail_id: this.props.reserve.schedule_detail_id,
             seats: this.props.reserve.seats,
         });
-
-        this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
+        if(this.isCancelled) this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
     }
 
     componentWillReceiveProps(nextProps) {
+
         this.setState({
             schedule_detail_id: nextProps.reserve.schedule_detail_id,
             seats: nextProps.reserve.seats,
         });
-        this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
+        if(this.isCancelled) this.loadOrder(nextProps.reserve.startDate, nextProps.reserve.schedule_detail_id);
+    }
+
+    // async componentDidUpdate(prevProps, prevState) {
+    //     if (this.props.reserve.schedule_detail_id && prevProps.reserve !== this.props.reserve) {
+    //         !this.isCancelled && this.setState({
+    //           schedule_detail_id: this.props.reserve.schedule_detail_id,
+    //           seats: this.props.reserve.seats,
+    //         });
+    //         let result = await this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
+    //     }
+    // }
+
+    componentWillUnmount() {
+        this.isCancelled = false;
     }
 
     handleClick(event, seat) {

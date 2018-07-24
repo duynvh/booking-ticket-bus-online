@@ -97,7 +97,7 @@ class CustomerInfo extends Component{
         method_payment,
         route_departure_name
       };
-      if(method_payment === 'offiline') {
+      if(method_payment === 'offline') {
         let url = `${configs.BASE_URL}order`;
         axios.post(url,formProps).then((response) => {
           this.props.clearSeat();

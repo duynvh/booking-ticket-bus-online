@@ -15,7 +15,6 @@ const reverse = (state = defaultState, action) => {
 	let {quantity, schedule_id, startDate, category_schedule_id, route_departure_name} = action;
     switch(action.type) {
         case types.BOOKING_TICKET:
-            console.log(action);
             return {...state, quantity, schedule_id, startDate, category_schedule_id};
         case types.ADD_SEAT:
             state.seats.push(action.seat);
