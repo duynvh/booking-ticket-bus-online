@@ -32,7 +32,7 @@ class CustomerInfo extends Component{
   constructor(props) {
       super(props);
       this.state = {
-        'name' : '',  
+        'name' : '',
         'email': '',
         'phone': '',
         'isChecked': false,
@@ -82,21 +82,22 @@ class CustomerInfo extends Component{
 
   handleSubmit = async (event) => {
     let {name, email, phone, isChecked, total, method_payment} = this.state;
-    let {seats, schedule_detail_id, startDate} = this.props.reserve;
+    let {seats, schedule_detail_id, startDate, route_departure_name} = this.props.reserve;
     let {token} = this.props.customer_info;
     if(isChecked === true) {
       this.props.userFetchInformation(name, email, phone);
       let formProps = {
-        name, 
+        name,
         email,
         phone,
         total,
         date: startDate,
         schedule_detail_id,
-        seat: seats, 
-        method_payment
+        seat: seats,
+        method_payment,
+        route_departure_name
       };
-      if(token === '') {
+      if(method_payment === 'offiline') {
         let url = `${configs.BASE_URL}order`;
         axios.post(url,formProps).then((response) => {
           this.props.clearSeat();
@@ -109,24 +110,26 @@ class CustomerInfo extends Component{
         event.preventDefault();
       }
       else {
-        let formPropsPayment = {
-          total,
-          id: token.id
-        };
-        let urlPayment = `${configs.BASE_URL}order/payment`;
-        axios.post(urlPayment, formPropsPayment).then((response) => {
-          let data = response.data;
-          let url = `${configs.BASE_URL}order`;
-          axios.post(url,formProps).then((response) => {
-            this.props.clearSeat();
-            this.props.showNotice();
-            this.context.router.history.push('/');
+        if(token !== '') {
+          let formPropsPayment = {
+            total,
+            id: token.id
+          };
+          let urlPayment = `${configs.BASE_URL}order/payment`;
+          axios.post(urlPayment, formPropsPayment).then((response) => {
+            let data = response.data;
+            let url = `${configs.BASE_URL}order`;
+            axios.post(url,formProps).then((response) => {
+              this.props.clearSeat();
+              this.props.showNotice();
+              this.context.router.history.push('/');
+            }).catch((e) => {
+              console.log(e);
+            });
           }).catch((e) => {
             console.log(e);
           });
-        }).catch((e) => {
-          console.log(e);
-        });
+        }
         event.preventDefault();
       }
     }
@@ -189,7 +192,7 @@ class CustomerInfo extends Component{
                       <label className="form-check-label">
                         <input name="isChecked" value={this.state.isChecked}
                         onChange={this.handleChange} type="checkbox" className="form-check-input" />
-                        Chấp nhận <a><u className="color-text-primary" id="condition">điều khoản</u></a> đặt vé của NVHD Bus Online 
+                        Chấp nhận <a><u className="color-text-primary" id="condition">điều khoản</u></a> đặt vé của NVHD Bus Online
                       </label>
                     </div>
                     <div className="row mt-15">
@@ -197,11 +200,11 @@ class CustomerInfo extends Component{
                         <button onClick={(e) => this.handleClickBack(e)} style={{marginRight: 17}} type="button" className="btn btn-primary">
                           <i style={{marginRight: 10}} className="fa fa-arrow-left icon-flat bg-btn-actived" />
                           Quay về
-                        </button> 
+                        </button>
                         <button type="submit" className="btn btn-success">
                           <i style={{marginRight: 10}} className="fa fa-arrow-right icon-flat bg-success" />
                           Tiếp tục
-                        </button> 
+                        </button>
                       </div>
                     </div>
 
@@ -218,7 +221,7 @@ class CustomerInfo extends Component{
                     <p className="text-justify">(*) Thông tin hành khách phải chính xác, nếu không sẽ không thể lên xe hoặc hủy/đổi vé</p>
                     <p className="text-justify">(*) Quý khách không được đổi / trả vé vào các ngày Lễ Tết ( ngày thường qúy khách được quyền chuyển đổi hoặc hủy vé <strong className="color-text-primary">một lần</strong> duy nhất trước giờ xe chạy 24 giờ), phí hủy vé 10%. </p>
                     <p className="text-justify">(*) Nếu quý khách có nhu cầu trung chuyển, vui lòng liên hệ số điện thoại
-                      <strong className="color-text-primary" style={{fontSize: '1.2em'}}>1900 6067</strong> 
+                      <strong className="color-text-primary" style={{fontSize: '1.2em'}}>1900 6067</strong>
                       trước khi đặt vé. Chúng tôi sẽ không đón/ trung chuyển tại những điểm xe trung chuyển không thể tới được.
                     </p>
                   </div>
@@ -234,7 +237,7 @@ class CustomerInfo extends Component{
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         reserve: state.reserve,
         customer_info: state.customer_info
     };

@@ -6,14 +6,16 @@ let defaultState = {
     schedule_id: '',
     category_schedule_id: '',
     schedule_detail_id: '',
+    route_departure_name: '',
     seats: [],
     notice: false
 };
 
 const reverse = (state = defaultState, action) => {
-	let {quantity, schedule_id, startDate, category_schedule_id} = action;
+	let {quantity, schedule_id, startDate, category_schedule_id, route_departure_name} = action;
     switch(action.type) {
         case types.BOOKING_TICKET:
+            console.log(action);
             return {...state, quantity, schedule_id, startDate, category_schedule_id};
         case types.ADD_SEAT:
             state.seats.push(action.seat);
@@ -23,8 +25,10 @@ const reverse = (state = defaultState, action) => {
             if(index  > -1) state.seats.splice(index, 1);
             return {...state};
         case types.CHANGE_SCHEDULE_DETAIL:
-            console.log(action.schedule_detail_id);
             state.schedule_detail_id = action.schedule_detail_id;
+            return {...state};
+        case types.CHANGE_ROUTE_DEPARTURE_NAME:
+            state.route_departure_name = action.route_departure_name;
             return {...state};
         case types.CLEAR_SEAT:
             state.seats = [];
@@ -41,4 +45,3 @@ const reverse = (state = defaultState, action) => {
 }
 
 export default reverse;
-

@@ -38,6 +38,10 @@ var orderSchema = new Schema({
     method_payment: {
         type: String,
         required: true
+    },
+    route_departure_name: {
+      type: String,
+      required: true
     }
 }, {timestamps: true})
 var Order = mongoose.model('Order',orderSchema);

@@ -7,6 +7,7 @@ class Seat extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isMounted: false,
             customClass: 'color-white',
             schedule_detail_id: '',
             list_seat_reverse: [],
@@ -15,23 +16,21 @@ class Seat extends Component {
     }
 
     loadOrder = (date, schedule_detail_id) => {
-        let url = `${configs.BASE_URL}order/get-by-date/${schedule_detail_id}/${date}`;
-        var list_seat = [];
-        axios.get(url).then(response => {
-            let data = response.data;
-            data.forEach((item)=> {
-              item.seat.map((seat, index) => {
-                list_seat.push(seat);
-              })
-            });
-            this.setState({
-              list_seat_reverse: list_seat 
-            });
-            this.getClass();
-        });
+      let url = `${configs.BASE_URL}order/get-by-date/${schedule_detail_id}/${date}`;
+      var list_seat = [];
+      axios.get(url).then(response => {
+          let data = response.data;
+          data.forEach((item)=> {
+            item.seat.map((seat, index) => {
+              list_seat.push(seat);
+            })
+          });
+          this.setState({
+            list_seat_reverse: list_seat,
+          });
+          this.getClass();
+      });
     }
-
-
 
     componentWillMount() {
         this.setState({
@@ -39,6 +38,7 @@ class Seat extends Component {
             schedule_detail_id: this.props.reserve.schedule_detail_id,
             seats: this.props.reserve.seats,
         });
+
         this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
     }
 
@@ -47,12 +47,12 @@ class Seat extends Component {
             schedule_detail_id: nextProps.reserve.schedule_detail_id,
             seats: nextProps.reserve.seats,
         });
-        this.loadOrder(nextProps.reserve.startDate, nextProps.reserve.schedule_detail_id);
+        this.loadOrder(this.props.reserve.startDate, this.props.reserve.schedule_detail_id);
     }
 
     handleClick(event, seat) {
         this.setState({
-            customClass : this.state.customClass == 'color-primary' ? 'color-white' : 'color-primary'  
+            customClass : this.state.customClass == 'color-primary' ? 'color-white' : 'color-primary'
         });
 
         if(this.state.customClass === 'color-primary') {
@@ -72,12 +72,12 @@ class Seat extends Component {
             });
             return;
         }
-        
+
         if (list_seat_reverse.includes(seat.toString())) {
             this.setState({
                 customClass : 'color-gray'
             });
-            return;   
+            return;
         }
         else {
             this.setState({
@@ -93,14 +93,14 @@ class Seat extends Component {
         let disabled = customClass == 'color-gray' ? true : false;
         return (
             <div key={this.props.index} className='col-md-3 mt-15'>
-                <button onClick={(e) => this.handleClick(e, seat)} disabled={disabled} type='button' className={`seat ${customClass}`}>{seat}</button> 
+                <button onClick={(e) => this.handleClick(e, seat)} disabled={disabled} type='button' className={`seat ${customClass}`}>{seat}</button>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         reserve: state.reserve,
     };
 }

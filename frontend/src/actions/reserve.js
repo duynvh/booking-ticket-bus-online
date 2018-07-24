@@ -4,8 +4,8 @@ export const bookingTicket = (schedule_id, category_schedule_id, quantity, start
     return {
         type : types.BOOKING_TICKET,
         schedule_id,
-        category_schedule_id, 
-        quantity, 
+        category_schedule_id,
+        quantity,
         startDate
     }
 }
@@ -27,6 +27,13 @@ export const removeSeat = (seat) => {
 export const clearSeat = () => {
     return {
         type : types.CLEAR_SEAT
+    }
+}
+
+export const changeRouteDeparture = (route_departure_name) => {
+    return {
+        type : types.CHANGE_ROUTE_DEPARTURE_NAME,
+        route_departure_name
     }
 }
 

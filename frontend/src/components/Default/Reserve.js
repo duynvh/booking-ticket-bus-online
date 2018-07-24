@@ -42,7 +42,7 @@ class Reserve extends Component{
           price: 0,
           arr_seat: [],
           schedule_detail_id: '',
-          route_departure_id: '',
+          route_departure_name: '',
           list_seat_reverse: []
       };
   }
@@ -65,7 +65,7 @@ class Reserve extends Component{
           })
         });
         this.setState({
-          list_seat_reverse: list_seat 
+          list_seat_reverse: list_seat
         });
     });
   }
@@ -109,8 +109,9 @@ class Reserve extends Component{
         let data = response.data;
         this.setState({
             routes_departure: data,
-            route_departure_id: data[0]._id
+            route_departure_name: data[0].name
         });
+        this.props.changeRouteDeparture(data[0].name);
     });
   }
 
@@ -139,7 +140,7 @@ class Reserve extends Component{
     let xhtml = null;
     if(arr_seat.length > 0) {
           xhtml = arr_seat.map((seat, index) => {
-              let customClass = 'color-white'; 
+              let customClass = 'color-white';
               return (
                   <Seat key={index} seat={seat} className={customClass}/>
               );
@@ -153,7 +154,7 @@ class Reserve extends Component{
       if(schedules_detail.length > 0) {
           xhtml = schedules_detail.map((schedule, index) => {
               return (
-                  <option key={index} value={schedule._id}>{schedule.start_time}</option>                        
+                  <option key={index} value={schedule._id}>{schedule.start_time}</option>
               );
           });
       }
@@ -165,12 +166,12 @@ class Reserve extends Component{
       if(routes_departure.length > 0) {
           xhtml = routes_departure.map((route, index) => {
               return (
-                  <option key={index} value={route._id}>{route.name}</option>                        
+                  <option key={index} value={route._id}>{route.name}</option>
               );
           });
       }
       return xhtml;
-  } 
+  }
 
   handleChange = (event) => {
       const target = event.target;
@@ -187,13 +188,17 @@ class Reserve extends Component{
           this.loadSeat();
       }
 
+      if (name === "route_departure_name") {
+          this.props.changeRouteDeparture(value);
+      }
+
       this.setState({
           [name]: value
       });
   }
 
   handleSubmit = (event) => {
-    let { schedule_detail_id, route_departure_id,  price} = this.state;
+    let { schedule_detail_id, route_departure_name,  price} = this.state;
     let {reserve} = this.props;
     if(reserve.seats.length > 0) {
       this.context.router.history.push('/thong-tin-khach-hang');
@@ -206,7 +211,7 @@ class Reserve extends Component{
 	render() {
     const {arr_seat,start_point, end_point, price, startDate, schedule, schedules_detail, routes_departure, list_seat_reverse} = this.state;
     const format_price = price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
-		
+
     let {reserve} = this.props;
     const total_price = (price * reserve.seats.length).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     return (
@@ -242,17 +247,27 @@ class Reserve extends Component{
                                   </select>
                                 </div>
                               </div>
-                            
+                          </div>
+                          <strong className="card-subtitle mb-2">Chọn điểm lên xe</strong>
+                          <div className="mt-15">
+                              <div className="form-group row">
+                                <label style={{marginTop: 4}} className="col-md-1"><i className="fa fa-clock-o color-text-primary" /></label>
+                                <div className="col-md-11">
+                                  <select onChange={this.handleChange} value={this.state.route_departure_name} name="route_departure_name" className="form-control form-control-sm" id="inputGroupSelect04">
+                                    {this.renderRouteDeparture(routes_departure)}
+                                  </select>
+                                </div>
+                              </div>
                           </div>
                           <div className="mt-15">
                             <button onClick={(e) => this.handleClickBack(e)} style={{marginRight: 17}} type="button" className="btn btn-primary">
                               <i style={{marginRight: 10}} className="fa fa-arrow-left icon-flat bg-btn-actived" />
                               Quay về
-                            </button> 
+                            </button>
                             <button type="submit" className="btn btn-success">
                               <i style={{marginRight: 10}} className="fa fa-arrow-right icon-flat bg-success" />
                               Tiếp tục
-                            </button> 
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -274,7 +289,7 @@ class Reserve extends Component{
                             <i className="fa fa-bus color-text-primary" />
                             <span style={{marginLeft: 10}}>{end_point}</span>
                           </div>
-                          
+
                         </div>
                         <hr />
                         <strong className="card-subtitle mb-2">Thông tin</strong>
@@ -343,7 +358,7 @@ class Reserve extends Component{
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         reserve: state.reserve,
     };
 }
@@ -355,6 +370,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         changeScheduleDetail: (schedule_detail_id) => {
             dispatch(actions.changeScheduleDetail(schedule_detail_id));
+        },
+        changeRouteDeparture: (route_departure_name) => {
+            dispatch(actions.changeRouteDeparture(route_departure_name));
         }
     }
 }

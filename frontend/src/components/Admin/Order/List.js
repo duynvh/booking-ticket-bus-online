@@ -25,14 +25,14 @@ class List extends Component {
             this.setState({
                 orders: response.data
             });
-        });        
+        });
     }
-    
-    renderStatus = (status) => {
-        if(status == 'active') {
-            return <span className="badge badge-primary">{status}</span>
+
+    renderMethodPayment = (method_payment) => {
+        if(method_payment == 'offline') {
+            return <span className="badge badge-primary">Chưa thanh toán</span>
         } else {
-            return <span className="badge badge-warning">{status}</span>
+            return <span className="badge badge-warning">Đã thanh toán</span>
         }
     }
 
@@ -40,15 +40,17 @@ class List extends Component {
         let xhtml = null;
         if(orders.length > 0) {
             xhtml = orders.map((order, index) => {
-                var arrDate = order.date_detail.split('-'); 
+                var arrDate = order.date_detail.split('-');
                 return (
                     <tr key={index}>
                         <td>{order.name}</td>
                         <td>{order.phone}</td>
                         <td>{order.total.format()} Đ</td>
+                        <td>{this.renderMethodPayment(order.method_payment)}</td>
                         <td>
                             <p>{arrDate[2]}/{arrDate[1]}/{arrDate[0]}</p>
                             <p>{order.schedule_detail_id.schedule_id.detail}</p>
+                            <p>{order.schedule_detail_id.start_time}</p>
                         </td>
                         <td>{order.seat.join(',')}</td>
                     </tr>
@@ -76,11 +78,12 @@ class List extends Component {
                                     <table id="example1" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                        <th>Name</th>
+                                        <th>Tên khách hàng</th>
                                         <th>Phone</th>
-                                        <th>Total</th>
-                                        <th>Info Schedule</th>
-                                        <th>Seat</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Method Payment</th>
+                                        <th>Lịch trình</th>
+                                        <th>Số ghế</th>
                                         </tr>
                                     </thead>
                                     <tbody>

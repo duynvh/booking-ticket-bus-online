@@ -4,14 +4,12 @@ import {connect} from 'react-redux';
 import Geocode from "react-geocode";
 import * as configs from '../../../constants/Config';
 import {Route, NavLink, Link} from 'react-router-dom';
-import TranshipmentOffice from './TranshipmentOffice';
 
 class RouteDeparture extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            transhipment_offices: [],
             lat: '',
             lng: '',
             isMarkerShown: false,
@@ -34,25 +32,7 @@ class RouteDeparture extends Component {
     }
 
     componentWillMount() {
-        let url = `${configs.BASE_URL}transhipment-office/get-by/${this.props.route._id}`;
-        axios.get(url).then(response => {
-            this.setState({
-                transhipment_offices: response.data
-            });
-        });        
         this.loadGoogleMap(this.props.route.address);
-    }
-
-    renderOffice = (transhipment_offices) => {
-        let xhtml = null;
-        if(transhipment_offices.length > 0) {
-            xhtml = transhipment_offices.map((office, index) => {
-                return (
-                    <TranshipmentOffice key={index} office={office} />
-                );
-            });
-        }
-        return xhtml;
     }
 
     loadGoogleMap = (address) => {
@@ -84,18 +64,12 @@ class RouteDeparture extends Component {
                     <p>Hotline: <strong className="text-success">{this.props.route.hotline}</strong></p>
                   </div>
                   <div className="col-7">
-                    <iframe frameBorder="0" style={{ width: "100%", height: "170"}} 
+                    <iframe frameBorder="0" style={{ width: "100%", height: "170"}}
                         src={_url}>
                     </iframe>
                   </div>
                 </div>
-                <div className="border-radius-office">
-                    <h5>Văn phòng trung chuyển</h5>
-                </div>
-                <div className="row">
-                    {this.renderOffice(transhipment_offices)}
-                </div>
-                <hr /> 
+                <hr />
             </div>
         );
     }

@@ -10,8 +10,8 @@ class CategorySchedule extends Component{
 	constructor(props) {
         super(props);
         this.state = {
-			routes_departure: [],
-			category_schedule: {}
+					routes_departure: [],
+					category_schedule: {}
         };
     }
 
@@ -21,7 +21,7 @@ class CategorySchedule extends Component{
             this.setState({
                 routes_departure: response.data
             });
-        });       
+        });
     }
 
     componentDidMount() {
@@ -30,7 +30,7 @@ class CategorySchedule extends Component{
             this.setState({
                 category_schedule: response.data
             });
-        }); 
+        });
     }
 
     renderRouteDeparture = (routes_departure) => {
@@ -59,9 +59,9 @@ class CategorySchedule extends Component{
 			<div id="wrapper" className="mt-30">
 			  <div className="container">
 			  	<h1 className="mt-15">Khởi hành từ: <span className="color-text-primary">{category_schedule.name}</span></h1>
-                <h3>Hotline: <strong className="text-success">{category_schedule.hotline}</strong></h3>
-				<hr />
-				{this.renderRouteDeparture(routes_departure)}			    
+          <h3>Hotline: <strong className="text-success">{category_schedule.hotline}</strong></h3>
+				  <hr />
+					{this.renderRouteDeparture(routes_departure)}
 			    {this.renderSchedule(category_schedule)}
 			  </div>
 			</div>

@@ -54,7 +54,7 @@ exports.createOrder = function(req, res) {
               console.log('Message sent: ' +  info.response);
               res.json({ message: 'Order successfully created', order });
           }
-      });      
+      });
     });
   });
 };
@@ -81,7 +81,7 @@ exports.getListOrder = function(req, res) {
 };
 
 exports.createCharge =  async function(req, res) {
-  const amount = req.body.total / 220;
+  const amount = Math.floor(req.body.total / 220);
   const charge = await stripe.charges.create({
     amount,
     currency: 'usd',
