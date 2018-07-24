@@ -33,21 +33,20 @@ exports.readProvince = function(req, res) {
 };
 
 exports.updateProvince = function(req, res) {
-    Province.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-    });
+  Province.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   
   
 exports.deleteProvince = function(req, res) {
-    Province.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
-        res.send(err);
-        res.json({ message: 'Province successfully deleted' });
-    });
+  req.body.status = 'inactive';
+  Province.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   

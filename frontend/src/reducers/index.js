@@ -13,6 +13,8 @@ import schedule_info from './schedule_info';
 import route_departure from './route_departure';
 import transhipment_office from './transhipment_office';
 import contact from './contact';
+import reserve from './reserve';
+import customer_info from './customer_info';
 const appReducers = combineReducers({
 	auth,
 	group,
@@ -27,7 +29,9 @@ const appReducers = combineReducers({
 	schedule_info,
 	route_departure,
 	transhipment_office,
-	contact
+	contact,
+	reserve,
+	customer_info
 });
 
 export default appReducers;

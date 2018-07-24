@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {Route, NavLink, Link} from 'react-router-dom';
-
 const menus = [
     {to: '/', exact: true, name: 'Trang chủ'},
     {to: '/lich-trinh', exact: true, name: 'Lịch trình'},
     {to: '/gioi-thieu', exact: true, name: 'Giới thiệu'},
     {to: '/lien-he', exact: true, name: 'Liên hệ'},
-    {to: '/dang-nhap', exact: true, name: 'Đăng nhập'},
-    {to: '/dang-ky', exact: true, name: 'Đăng ký'},
 ];
 
 const MenuLink = ({ menu }) => {

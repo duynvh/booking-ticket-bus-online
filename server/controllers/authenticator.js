@@ -14,6 +14,7 @@ exports.signin = function(req, res, next) {
     if(!email || !password) {
         return res.status(422).send({error: 'You must provide email and password'});
     }
+
     res.send({token: tokenForUser(req.user)});
 };
 

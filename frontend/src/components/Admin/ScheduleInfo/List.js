@@ -4,7 +4,10 @@ import { Link, NavLink } from 'react-router-dom'
 import axios from 'axios';
 import * as actions from '../../../actions/schedule_info';
 import * as configs from '../../../constants/Config';
-
+Number.prototype.format = function(n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+};
 class List extends Component {
 
     constructor(props) {
@@ -55,7 +58,7 @@ class List extends Component {
                 return (
                     <tr key={index}>
                         <td>{schedule.schedule_id.detail}</td>
-                        <td>{schedule.price}</td>
+                        <td>{schedule.price.format()} Đ</td>
                         <td>{schedule.start_time}</td>
                         <td>{this.renderStatus(schedule.status)}</td>
                         <td>{dateComponent}</td>

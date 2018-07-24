@@ -71,7 +71,8 @@ exports.readScheduleBySlug = function(req, res) {
 };
 
 exports.updateSchedule = function(req, res) {
-    CategorySchedule.findOne(req.body.province_id, function(err, data) {
+    CategorySchedule.findById(req.body.category_schedule_id, function(err, data) {
+      console.log(data);
       if (err) res.send(err);
       req.body.detail = data.name + " - " + req.body.name;
       req.body.slug = string_to_slug(req.body.detail);
@@ -85,12 +86,11 @@ exports.updateSchedule = function(req, res) {
   
   
 exports.deleteSchedule = function(req, res) {
-    Schedule.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
-        res.send(err);
-        res.json({ message: 'Schedule successfully deleted' });
-    });
+  req.body.status = 'inactive';
+  Schedule.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   

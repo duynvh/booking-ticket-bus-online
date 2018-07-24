@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Route, NavLink, Link} from 'react-router-dom';
-
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 const menus = [
     {to: '/', exact: true, name: 'Trang chủ'},
     {to: '/lich-trinh', exact: true, name: 'Lịch trình'},
@@ -51,7 +51,7 @@ class Footer extends Component {
 
     render() {
         return (
-            <footer style={{marginTop: '50px'}}>
+            <footer style={{marginTop: '50px'}}>   
                 <div className="container">
                     <div className="row" style={{padding: '20px 0px 30px 0px'}}>
                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12">

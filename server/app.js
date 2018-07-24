@@ -21,6 +21,7 @@ var scheduleRouter = require('./routes/schedule');
 var scheduleDetailRouter = require('./routes/schedule_detail');
 var transhipmentOfficeRouter = require('./routes/transhipment_office');
 var menuRouter = require('./routes/menu');
+var orderRouter = require('./routes/order');
 // Config constants
 var constants = require('./configs/constants');
 
@@ -57,6 +58,7 @@ app.use('/schedule-detail', scheduleDetailRouter);
 app.use('/schedule', scheduleRouter);
 app.use('/transhipment-office', transhipmentOfficeRouter);
 app.use('/menu', menuRouter);
+app.use('/order', orderRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

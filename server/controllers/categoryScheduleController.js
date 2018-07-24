@@ -69,20 +69,19 @@ exports.updateCategorySchedule = function(req, res) {
   
   
 exports.deleteCategorySchedule = function(req, res) {
-    CategorySchedule.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
-        res.send(err);
-        res.json({ message: 'Category Schedule successfully deleted' });
-    });
+  req.body.status = 'inactive';
+  CategorySchedule.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
 
 exports.readCategoryScheduleBySlug = function(req, res) {
-    CategorySchedule.findOne({slug: req.params.slug}, function(err, data) {
-      if (err)
+  CategorySchedule.findOne({slug: req.params.slug}, function(err, data) {
+    if (err)
         res.send(err);
       res.json(data);
-    });
+  });
 };
   

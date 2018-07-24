@@ -38,12 +38,11 @@ exports.updateTranshipmentOffice = function(req, res) {
   
   
 exports.deleteTranshipmentOffice = function(req, res) {
-    TranshipmentOffice.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
+    req.body.status = 'inactive';
+    TranshipmentOffice.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+      if (err)
         res.send(err);
-        res.json({ message: 'Transhipment Office successfully deleted' });
+      res.json(data);
     });
 };
   

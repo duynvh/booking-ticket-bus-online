@@ -69,9 +69,9 @@ exports.deleteArticle = function(req, res) {
 };
   
 exports.readArticleBySlug = function(req, res) {
-    Article.findOne({slug: req.params.slug}, function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-    });
+  Article.findOne({slug: req.params.slug}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };

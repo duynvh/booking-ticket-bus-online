@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link, NavLink } from 'react-router-dom'
+import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as configs from '../../constants/Config';
+import * as actions from '../../actions/reserve';
+import NotificationAlert from 'react-notification-alert';
+var options = {};
+options = {
+    place: 'tr',
+    message: (
+        <div>
+            <div>
+                Bạn đã đặt vé thành công
+            </div>
+        </div>
+    ),
+    type: "success",
+    icon: "now-ui-icons ui-1_bell-53",
+    autoDismiss: 5
+}
 
 class Content extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    }
 
     constructor(props) {
         super(props);
@@ -46,8 +68,16 @@ class Content extends Component {
         });
     }
 
+    loadNotify(){
+      this.refs.notify.notificationAlert(options);
+    }
+
     componentDidMount() {
         this.loadCategorySchedule();
+        if(this.props.reserve.notice === true) {
+            this.loadNotify();
+            this.props.hideNotice();
+        }
     }
 
     renderSelectedPoint = (schedules) => {
@@ -84,7 +114,8 @@ class Content extends Component {
 
     handleSubmit = (event) => {
         let {start_point, end_point, startDate, quantity} = this.state;
-        console.log(start_point + " - " + end_point + " - " + startDate + " - " + quantity);
+        this.props.bookingTicket(end_point, start_point, quantity, startDate);
+        this.context.router.history.push('/dat-ve');
         event.preventDefault();
     }
 
@@ -92,6 +123,7 @@ class Content extends Component {
         let {categories_schedule, schedules} = this.state;
         return (
             <div id="wrapper" className="mt-30">
+                <NotificationAlert ref="notify" />
                 <div className="container">
                     <div className="wrapper-header">
                     <div className="row">
@@ -135,7 +167,7 @@ class Content extends Component {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                         <label htmlFor="exampleFormControlInput1">Số lượng vé</label>
-                                        <input required value={this.state.quantity} onChange={this.handleChange} name="quantity" type="number" className="form-control" id="quantity"/>
+                                        <input min={1} required value={this.state.quantity} onChange={this.handleChange} name="quantity" type="number" className="form-control" id="quantity"/>
                                         </div>	
                                     </div>
                                 </div>
@@ -259,7 +291,7 @@ class Content extends Component {
                             <p>Khởi hành từ: <span className="color-text-primary">TP Hồ Chí Minh</span></p>
                             <p>Hotline: <span className="color-text-primary">02973 66 88 66 - 02973 691 691</span></p>
                             <p>Điểm đến: Vũng Tàu ,Qui Nhơn, Nha Trang,...</p>
-                            <a href="#" className="btn btn-primary">Xem thông tin chi tiết</a>
+                            <NavLink to="/lich-trinh-cu-the/tp-ho-chi-minh" className="btn btn-primary">Xem thông tin chi tiết</NavLink>
                             </div>
                         </div>
                         </div>
@@ -270,7 +302,7 @@ class Content extends Component {
                             <p>Khởi hành từ: <span className="color-text-primary">Quy Nhơn</span></p>
                             <p>Hotline: <span className="color-text-primary">02973 66 88 66 - 02973 691 691</span></p>
                             <p>Điểm đến: Tp Hồ Chí Minh, Nha Trang,...</p>
-                            <a href="#" className="btn btn-primary">Xem thông tin chi tiết</a>
+                            <NavLink to="/lich-trinh-cu-the/quy-nhon" className="btn btn-primary">Xem thông tin chi tiết</NavLink>
                             </div>
                         </div>
                         </div>
@@ -281,7 +313,7 @@ class Content extends Component {
                             <p>Khởi hành từ: <span className="color-text-primary">Đà Lạt</span></p>
                             <p>Hotline: <span className="color-text-primary">02973 66 88 66 - 02973 691 691</span></p>
                             <p>Điểm đến: Tp Hồ Chí Minh, Đà Nẵng,...</p>
-                            <a href="#" className="btn btn-primary">Xem thông tin chi tiết</a>
+                            <NavLink to="/lich-trinh-cu-the/da-lat" className="btn btn-primary">Xem thông tin chi tiết</NavLink>
                             </div>
                         </div>
                         </div>	
@@ -311,4 +343,21 @@ class Content extends Component {
     }
 }
 
-export default Content;
+function mapStateToProps(state) {
+    return { 
+        reserve: state.reserve,
+    };
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        bookingTicket: (schedule_id, category_schedule_id, quantity, startDate) => {
+            dispatch(actions.bookingTicket(schedule_id, category_schedule_id, quantity, startDate)) ;
+        },
+        hideNotice: () => {
+            dispatch(actions.hideNotice());
+        }, 
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

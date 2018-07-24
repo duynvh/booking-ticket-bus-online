@@ -39,24 +39,30 @@ exports.updateScheduleDetail = function(req, res) {
   
   
 exports.deleteScheduleDetail = function(req, res) {
-    ScheduleDetail.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
-        res.send(err);
-        res.json({ message: 'Schedule Detail successfully deleted' });
-    });
+  req.body.status = 'inactive';
+  ScheduleDetail.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   
 exports.listScheduleDetailBySlug = function(req, res) {
-    Schedule.findOne({slug: req.params.slug}, function(err, data) {
-      if (err) res.send(err);
-      ScheduleDetail
-      .find({schedule_id: data._id})
-      .populate('schedule_id')
-      .exec(function(err, articles) {
-          if (err) res.send(err);
-          res.json(articles);
-      });
+  Schedule.findOne({slug: req.params.slug}, function(err, data) {
+    if (err) res.send(err);
+    ScheduleDetail
+    .find({schedule_id: data._id})
+    .populate('schedule_id')
+    .exec(function(err, articles) {
+        if (err) res.send(err);
+        res.json(articles);
     });
+  });
+};
+
+exports.listScheduleDetailByScheduleID = function(req, res) {
+  ScheduleDetail.find({schedule_id: req.params.id}, function(err, data) {
+    if (err) res.send(err);
+    res.json(data);
+  });
 };

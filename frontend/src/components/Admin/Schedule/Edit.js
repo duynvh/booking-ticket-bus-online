@@ -46,7 +46,7 @@ class Edit extends Component {
                 name: data.name,
                 status: data.status,
                 ordering: data.ordering,
-                category_schedule_id: data.province_id
+                category_schedule_id: data.category_schedule_id
             });
         });
     }
@@ -73,6 +73,7 @@ class Edit extends Component {
                 length,
                 name
             };
+            
             this.props.editSchedule(this.props.id,formProps, () => {
                 this.context.router.history.push('/admin/schedule');
             });

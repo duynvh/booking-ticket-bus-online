@@ -53,7 +53,7 @@ class Sidebar extends Component {
     }
 
     loadMenu() {
-        let url = `${configs.BASE_URL}menu`;
+        let url = `${configs.BASE_URL}menu/active`;
         axios.get(url).then(response => {
             let data = response.data;
             this.setState({

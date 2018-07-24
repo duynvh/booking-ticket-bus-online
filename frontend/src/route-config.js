@@ -11,6 +11,7 @@ import SchedulePageDefault from './pages/Default/SchedulePageDefault';
 import ScheduleDetailPageDefault from './pages/Default/ScheduleDetailPageDefault';
 import CategorySchedulePageDefault from './pages/Default/CategorySchedulePageDefault';
 import ReservePage from './pages/Default/ReservePage';
+import CustomerInfoPage from './pages/Default/CustomerInfoPage';
 // Admin
 import LoginPage from './pages/Admin/LoginPage';
 
@@ -76,6 +77,8 @@ import ListRouteDeparturePage from './pages/Admin/RouteDeparture/ListRouteDepart
 import EditTranshipmentOfficePage from './pages/Admin/TranshipmentOffice/EditTranshipmentOfficePage';
 import FormTranshipmentOfficePage from './pages/Admin/TranshipmentOffice/FormTranshipmentOfficePage';
 import ListTranshipmentOfficePage from './pages/Admin/TranshipmentOffice/ListTranshipmentOfficePage';
+
+import ListOrderPage from './pages/Admin/Order/ListOrderPage';
 const routes = [
     { 
         path: '/',
@@ -103,20 +106,25 @@ const routes = [
         main: () => <ReservePage/>
     },
     { 
+        path: '/thong-tin-khach-hang',
+        exact: true,
+        main: () => <CustomerInfoPage/>
+    },
+    { 
         path: '/lien-he',
         exact: true,
         main: () => <ContactPage />
     },
-    { 
-        path: '/dang-ky',
-        exact: true,
-        main: () => <RegisterPage />
-    },
-    { 
-        path: '/dang-nhap',
-        exact: true,
-        main: () => <LoginPageDefault />
-    },
+    // { 
+    //     path: '/dang-ky',
+    //     exact: true,
+    //     main: () => <RegisterPage />
+    // },
+    // { 
+    //     path: '/dang-nhap',
+    //     exact: true,
+    //     main: () => <LoginPageDefault />
+    // },
     { 
         path: '/admin/login',
         exact: true,
@@ -306,6 +314,11 @@ const routes = [
         path: '/admin/transhipment-office/:id',
         exact: true,
         main: ({match}) => <EditTranshipmentOfficePage match={match} />
+    },
+    {
+        path: '/admin/order',
+        exact: true,
+        main: () => <ListOrderPage />
     },
     { 
         path: '',

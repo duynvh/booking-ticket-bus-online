@@ -8,5 +8,5 @@ router.get('/', scheduleDetail.listScheduleDetail);
 router.get('/:id', scheduleDetail.readScheduleDetail);
 
 router.get('/get-by-slug/:slug', scheduleDetail.listScheduleDetailBySlug);
-
+router.get('/get-by/:id', scheduleDetail.listScheduleDetailByScheduleID);
 module.exports = router;

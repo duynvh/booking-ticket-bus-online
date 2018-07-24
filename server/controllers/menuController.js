@@ -2,6 +2,14 @@ var Menu = require('../models/menu');
 var path = require('path');
 
 exports.listMenu = function(req, res) {
+    Menu.find({status: 'active'}, function(err, menu) {
+      if (err)
+        res.send(err);
+      res.json(menu);
+    });
+};
+
+exports.listAllMenu = function(req, res) {
     Menu.find({}, function(err, menu) {
       if (err)
         res.send(err);
@@ -35,20 +43,19 @@ exports.readMenu = function(req, res) {
 
 exports.updateMenu = function(req, res) {
   Menu.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
-      if (err)
-        res.send(err);
-      res.json(data);
-    });
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   
   
 exports.deleteMenu = function(req, res) {
-  Menu.remove({
-      _id: req.params.id
-    }, function(err, data) {
-        if (err)
-          res.send(err);
-        res.json({ message: 'Menu successfully deleted' });
-    });
+  req.body.status = 'inactive';
+  Menu.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.json(data);
+  });
 };
   
