@@ -6,7 +6,7 @@ var slugify = require('slugify');
 function string_to_slug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
-  
+
   // remove accents, swap ñ for n, etc
   var from = "ẵàáạäâèéëêìíïîòóöôồơũùúüûñçđ·/_,:;";
   var to   = "aaaaaaeeeeiiiioooooouuuuuncd------";
@@ -34,7 +34,7 @@ exports.listSchedule = function(req, res) {
 
 exports.listScheduleByCategorySchedule = function(req, res) {
     Schedule
-    .find({category_schedule_id: req.params.id})
+    .find({category_schedule_id: req.params.id, status: 'active'})
     .exec(function(err, schedules) {
         if (err) res.send(err);
         res.json(schedules);
@@ -83,8 +83,8 @@ exports.updateSchedule = function(req, res) {
       });
     });
 };
-  
-  
+
+
 exports.deleteSchedule = function(req, res) {
   req.body.status = 'inactive';
   Schedule.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
@@ -93,4 +93,3 @@ exports.deleteSchedule = function(req, res) {
     res.json(data);
   });
 };
-  

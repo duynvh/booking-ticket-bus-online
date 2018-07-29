@@ -20,26 +20,26 @@ class LoginPage extends Component {
     componentDidMount() {
         this.shouldNavigateAway();
     }
-  
+
     // Our component just got updated
     componentDidUpdate() {
         this.shouldNavigateAway();
     }
-  
+
     shouldNavigateAway() {
         if (this.props.auth) {
-            this.context.router.history.push('/admin/group');
+            this.context.router.history.push('/admin');
         }
     }
-    
+
     handleSubmit = (event) => {
         let {email, password} = this.state;
         let formProps = {
-            email, 
+            email,
             password
         };
         this.props.signin(formProps, () => {
-            this.context.router.history.push('/admin/group');
+            this.context.router.history.push('/admin');
         });
         event.preventDefault();
     }
@@ -53,7 +53,7 @@ class LoginPage extends Component {
             [name]: value
         });
     }
-    
+
     render() {
         let xhtml = null;
         if(this.props.errorMessage) {
@@ -95,15 +95,6 @@ class LoginPage extends Component {
                             </div>
                         </div>
                     </form>
-                    <div className="social-auth-links text-center mb-3">
-                        <p>- OR -</p>
-                        <a href="#" className="btn btn-block btn-primary">
-                        <i className="fa fa-facebook mr-2" /> Sign in using Facebook
-                        </a>
-                        <a href="#" className="btn btn-block btn-danger">
-                        <i className="fa fa-google-plus mr-2" /> Sign in using Google+
-                        </a>
-                    </div>
                     {/* /.social-auth-links */}
                     <p className="mb-1">
                         <a href="#">I forgot my password</a>
@@ -120,7 +111,7 @@ class LoginPage extends Component {
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         errorMessage: state.auth.errorMessage,
         auth: state.auth.authenticated
     };

@@ -20,7 +20,7 @@ class Edit extends Component {
             msg: '',
             categories_article: [],
             category_article_id: '',
-            description: '', 
+            description: '',
             content: ''
         };
 
@@ -68,13 +68,13 @@ class Edit extends Component {
         if(categories_article.length > 0) {
             xhtml = categories_article.map((category, index) => {
                 return (
-                    <option key={index} value={category._id}>{category.name}</option>                        
+                    <option key={index} value={category._id}>{category.name}</option>
                 );
             });
         }
         return xhtml;
     }
-    
+
     handleSubmit = (event) => {
         this.props.clearMsg();
         let {title, status, ordering, category_article_id, description, content} = this.state;
@@ -85,7 +85,7 @@ class Edit extends Component {
         }
         else {
             let formProps = {
-                title, 
+                title,
                 category_article_id,
                 description,
                 status,
@@ -119,21 +119,21 @@ class Edit extends Component {
         var newContent = evt.editor.getData();
         this.setState({
             content: newContent
-        });  
+        });
     }
 
     onBlur(evt){
       var newContent = evt.editor.getData();
         this.setState({
             content: newContent
-        });  
+        });
     }
-    
+
     afterPaste(evt){
         var newContent = evt.editor.getData();
         this.setState({
             content: newContent
-        });  
+        });
     }
 
     render() {
@@ -182,9 +182,9 @@ class Edit extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="content">Content</label>
-                                            <CKEditor 
-                                              activeClass="p10" 
-                                              content={this.state.content} 
+                                            <CKEditor
+                                              activeClass="p10"
+                                              content={this.state.content}
                                               events={{
                                                 "blur": this.onBlur,
                                                 "afterPaste": this.afterPaste,
@@ -203,7 +203,7 @@ class Edit extends Component {
                                             <label htmlFor="ordering">Ordering</label>
                                             <input required value={this.state.ordering} onChange={this.handleChange} name="ordering" type="number" className="form-control" id="ordering" placeholder="Enter ordering" />
                                         </div>
-                                        <button type="submit" className="btn btn-primary" style={{marginRight:'10px'}}>Submit</button>      
+                                        <button type="submit" className="btn btn-primary" style={{marginRight:'10px'}}>Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -216,7 +216,7 @@ class Edit extends Component {
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         message: state.article.message,
     };
 }

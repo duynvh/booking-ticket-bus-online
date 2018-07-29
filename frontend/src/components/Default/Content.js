@@ -45,7 +45,7 @@ class Content extends Component {
     }
 
     loadCategorySchedule() {
-        let url = `${configs.BASE_URL}category-schedule`;
+        let url = `${configs.BASE_URL}category-schedule/active`;
         axios.get(url).then(response => {
             let data = response.data;
             this.setState({
@@ -85,7 +85,7 @@ class Content extends Component {
         if(schedules.length > 0) {
             xhtml = schedules.map((schedule, index) => {
                 return (
-                    <option key={index} value={schedule._id}>{schedule.name}</option>                        
+                    <option key={index} value={schedule._id}>{schedule.name}</option>
                 );
             });
         }
@@ -100,7 +100,7 @@ class Content extends Component {
         this.setState({
             [name]: value
         });
-        
+
         if (name === "start_point") {
             this.loadSchedule(value);
         }
@@ -168,7 +168,7 @@ class Content extends Component {
                                         <div className="form-group">
                                         <label htmlFor="exampleFormControlInput1">Số lượng vé</label>
                                         <input min={1} required value={this.state.quantity} onChange={this.handleChange} name="quantity" type="number" className="form-control" id="quantity"/>
-                                        </div>	
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" className="btn color-primary mb-2">
@@ -234,7 +234,7 @@ class Content extends Component {
                         <div className="col-md-12">
                         <a>
                             <h3 className="heading">
-                            <i className="fa fa-file-text" aria-hidden="true" /> 
+                            <i className="fa fa-file-text" aria-hidden="true" />
                             Thông tin cần biết
                             </h3>
                         </a>
@@ -277,7 +277,7 @@ class Content extends Component {
                         <div className="col-md-12">
                         <a>
                             <h3 className="heading">
-                            <i className="fa fa-file-text" aria-hidden="true" /> 
+                            <i className="fa fa-file-text" aria-hidden="true" />
                             Khởi hành từ các thành phố lớn
                             </h3>
                         </a>
@@ -316,7 +316,7 @@ class Content extends Component {
                             <NavLink to="/lich-trinh-cu-the/da-lat" className="btn btn-primary">Xem thông tin chi tiết</NavLink>
                             </div>
                         </div>
-                        </div>	
+                        </div>
                     </div>
                     {/* Number */}
                     <div className="row mt-30">
@@ -344,7 +344,7 @@ class Content extends Component {
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         reserve: state.reserve,
     };
 }
@@ -356,7 +356,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         hideNotice: () => {
             dispatch(actions.hideNotice());
-        }, 
+        },
     }
 }
 

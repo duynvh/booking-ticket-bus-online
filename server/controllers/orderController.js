@@ -1,4 +1,7 @@
 var Order = require('../models/order');
+var CategorySchedule = require('../models/category_schedule');
+var Schedule = require('../models/schedule');
+var Contact = require('../models/contact');
 var ScheduleDetail = require('../models/schedule_detail');
 var path = require('path');
 var moment = require('moment')
@@ -40,12 +43,16 @@ exports.createOrder = function(req, res) {
               pass: 'eotzmfeyuycgblmi'
           }
       });
-      var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+
+      const paymentMethod = req.body.method_payment === 'offline' ? 'Chưa thanh toán' : 'Đã thanh toán';
+
+      const mainOptions = { // thiết lập đối tượng, nội dung gửi mail
           from: req.body.name,
           to: req.body.email,
           subject: 'Đặt vé xe khách thành công',
           text: 'Bạn đã nhận được email',
-          html: '<p><strong>Bạn đã đặt vé xe khách thành công</strong></p><ul><li>Chuyến xe:' + data.schedule_id.detail + '</li><li>Giờ chạy:' + data.start_time + '</li><li>Họ và tên khách hàng:' + req.body.name + '</li><li>Số điện thoại:' + req.body.phone + '</li><li>Số ghế:' + req.body.seat.join(",") + '</li><li>Tổng tiền:' + req.body.total + '</li></ul>'
+          html: '<p><strong>Bạn đã đặt vé xe khách thành công</strong></p><table style="width: 100%;border-collapse: collapse;"th"><tr><th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Thông tin chuyến xe</th><th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Thông tin khách hàng</th><th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Số ghế</th><th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Tổng tiền</th><th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Thanh toán</th></tr><tr><td style="border: 1px solid #dddddd;text-align: left;padding: 8px;"><p>'+data.schedule_id.detail+'</p><p>'+data.start_time+'</p><p>'+req.body.date_detail+'</p></td><td style="border: 1px solid #dddddd;text-align: left;padding: 8px;"><p>'+req.body.name+'</p><p>'+req.body.phone+'</p></td><td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">'+req.body.seat.join(",")+'</td><td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">' + req.body.total + '</td><td style="border: 1px solid #dddddd;text-align: left;padding: 8px;"><b>' + paymentMethod + '</b></td></tr></table>'
+          // '<ul><li>Chuyến xe:' + data.schedule_id.detail + '</li><li>Giờ chạy:' + data.start_time + '</li><li>Họ và tên khách hàng:' + req.body.name + '</li><li>Số điện thoại:' + req.body.phone + '</li><li>Số ghế:' + req.body.seat.join(",") + '</li><li>Tổng tiền:' + req.body.total + '</li></ul>'
       }
       transporter.sendMail(mainOptions, function(err, info){
           if (err) {
@@ -88,6 +95,34 @@ exports.createCharge =  async function(req, res) {
     source: req.body.id
   });
   res.send(charge);
+}
+
+exports.dashboard = async function(req, res) {
+  var arrDashboard = {
+      listOrder: 0,
+      listCategorySchedule: 0,
+      listSchedule: 0,
+      listContact: 0
+  };
+
+  var listOrder = 0;
+
+  arrDashboard.listOrder = await Order.count({});
+  arrDashboard.listCategorySchedule = await CategorySchedule.count({});
+  arrDashboard.listSchedule = await Schedule.count({});
+  arrDashboard.listContact = await Order.count({});
+  res.json(arrDashboard);
+  // CategorySchedule.count({}, function(err, count){
+  //   arrDashboard.listCategorySchedule = count;
+  // })
+  //
+  // Contact.count({}, function(err, count) {
+  //   arrDashboard.listSchedule = count;
+  // })
+  //
+  // Schedule.count({}, function(err, count) {
+  //   arrDashboard.listContact = count;
+  // })
 }
 
 function formatDate(date) {

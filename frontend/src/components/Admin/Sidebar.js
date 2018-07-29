@@ -18,20 +18,20 @@ import axios from 'axios';
 
 const MenuLink = ({ menu }) => {
 	return (
-		<Route 
-			path={menu.link} 
-			//exact={true} 
+		<Route
+			path={menu.link}
+			//exact={true}
             exact={true}
 			children=
-				{ 
+				{
 					({ match }) => {
                         let active = (match !== null) ? "active" : "";
 						return (
 							<li className={`nav-item ${active}`} >
 								<Link to={menu.link} className={`nav-link ${active}`}>
-                                    <i style={{marginRight:'5px'}} className={`nav-icon ${menu.icon}`}> 
+                                    <i style={{marginRight:'5px'}} className={`nav-icon ${menu.icon}`}>
                                     </i>
-                                    {menu.name}                                    
+                                    {menu.name}
 								</Link>
 							</li>
 						)
@@ -42,7 +42,7 @@ const MenuLink = ({ menu }) => {
 }
 
 class Sidebar extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -68,7 +68,7 @@ class Sidebar extends Component {
 
     showMenusTwo(menus){
     	let xhtml = null;
-		
+
 		if(menus.length > 0 ){
 			xhtml = menus.map((menu, index)=> {
 				return (
@@ -76,7 +76,7 @@ class Sidebar extends Component {
 				);
 			});
 		}
-	
+
     	return xhtml;
     }
 
@@ -84,9 +84,9 @@ class Sidebar extends Component {
         return (
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
                 {/* Brand Logo */}
-                <a href="index3.html" className="brand-link text-center">
+                <NavLink to="/admin" className="brand-link text-center">
                     <span className="brand-text font-weight-light">Admin Bus Online</span>
-                </a>
+                </NavLink>
                 {/* Sidebar */}
                 <div className="sidebar">
                     {/* Sidebar user panel (optional) */}

@@ -36,8 +36,8 @@ exports.updateRouteDeparture = function(req, res) {
       res.json(data);
     });
 };
-  
-  
+
+
 exports.deleteRouteDeparture = function(req, res) {
     req.body.status = 'inactive';
     RouteDeparture.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, data) {
@@ -46,7 +46,7 @@ exports.deleteRouteDeparture = function(req, res) {
       res.json(data);
     });
 };
-  
+
 exports.listRouteDepartureBySlug = function(req, res) {
     CategorySchedule.findOne({slug: req.params.slug}, function(err, data) {
       if (err) res.send(err);
@@ -61,9 +61,9 @@ exports.listRouteDepartureBySlug = function(req, res) {
 };
 
 exports.listRouteDepartureByCategoryScheduleID = function(req, res) {
-  RouteDeparture.find({category_schedule_id: req.params.id}, function(err, data) {
+  RouteDeparture.find({category_schedule_id: req.params.id, status: 'active'}, function(err, data) {
     if (err)
       res.send(err);
     res.json(data);
-  }); 
+  });
 };
