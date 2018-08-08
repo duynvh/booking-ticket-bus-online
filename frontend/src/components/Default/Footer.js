@@ -6,17 +6,15 @@ const menus = [
     {to: '/lich-trinh', exact: true, name: 'Lịch trình'},
     {to: '/gioi-thieu', exact: true, name: 'Giới thiệu'},
     {to: '/lien-he', exact: true, name: 'Liên hệ'},
-    {to: '/dang-nhap', exact: true, name: 'Đăng nhập'},
-    {to: '/dang-ky', exact: true, name: 'Đăng ký'},
 ];
 
 const MenuLink = ({ menu }) => {
     return (
-        <Route 
-            path={menu.to} 
+        <Route
+            path={menu.to}
             exact={true}
             children=
-                { 
+                {
                     ({ match }) => {
                         return (
                             <li>
@@ -24,7 +22,7 @@ const MenuLink = ({ menu }) => {
                                     <i className="fa fa-arrow-right" />
                                 </span>
                                 <Link to={menu.to}>
-                                    {menu.name}                                    
+                                    {menu.name}
                                 </Link>
                             </li>
                         )
@@ -37,7 +35,7 @@ const MenuLink = ({ menu }) => {
 class Footer extends Component {
     showMenu(menus){
         let xhtml = null;
-        
+
         if(menus.length > 0 ){
             xhtml = menus.map((menu, index)=> {
                 return (
@@ -45,13 +43,18 @@ class Footer extends Component {
                 );
             });
         }
-    
+
         return xhtml;
     }
 
+
     render() {
         return (
-            <footer style={{marginTop: '50px'}}>   
+            <footer style={{marginTop: '50px'}}>
+              <MessengerCustomerChat
+                  pageId="1481552348558998"
+                  appId="1537902962925541"
+                />
                 <div className="container">
                     <div className="row" style={{padding: '20px 0px 30px 0px'}}>
                     <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12">
